@@ -41,18 +41,20 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			// Например, когда мы становимся в текстовое поле, то это текстовое поле получает уведомление EN_SETFOCUS
 			// Когда мы уходим из текстового поля, то оно получает уведомление EN_KILLFOCUS. 
 			//Фокус - часть окна, которая принимает команды клавиатуры.
+			CONST INT SIZE = 256;
+		    CHAR sz_buffer[SIZE] = {};
+			HWND hEditLogin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
+			SendMessage(hEditLogin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 			switch (HIWORD(wParam))
 			{
-			case EN_SETFOCUS:SendMessage(GetDlgItem(hwnd, IDC_EDIT_LOGIN), WM_SETTEXT, 0, (LPARAM)"");
+			case EN_SETFOCUS:
+				if(strcmp(sz_buffer, sz_login_invitation)==0)
+				SendMessage(GetDlgItem(hwnd, IDC_EDIT_LOGIN), WM_SETTEXT, 0, (LPARAM)"");
 				break;
 			case EN_KILLFOCUS:
-			{
-				CONST INT SIZE = 256;
-				CHAR sz_buffer[SIZE] = {};
-				if (!GetDlgItemText(hwnd, IDC_EDIT_LOGIN, sz_buffer, SIZE))
-					SendMessage(GetDlgItem(hwnd, IDC_EDIT_LOGIN), WM_SETTEXT, 0, (LPARAM)"Enter login");
+			    if(strlen(sz_buffer)==0)
+				SendMessage(GetDlgItem(hwnd, IDC_EDIT_LOGIN), WM_SETTEXT, 0, (LPARAM)sz_login_invitation);
 				break;
-			}
 			}
 		}
 
