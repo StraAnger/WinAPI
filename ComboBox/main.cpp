@@ -63,11 +63,15 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		SendMessage(hwnd, WM_SETICON, 0, (LPARAM)hIcon);
 		HWND hComboBox = GetDlgItem(hwnd, IDC_COMBO1);
 		//GetDlgItem- возвращает HWND элемента окна по ID- ресурса нужного элемента
+	
+		
 		for (int i = 0; i < sizeof(string) / sizeof(string[0]); ++i)
 		{
 			SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)string[i]);
 			//сообщение CB_ADDSTRING добавляет указанную строку в ComboBox
 		}
+
+
 	}
 	break;
 	case WM_COMMAND:   //Это сообщение обрабатывает нажатие на кнопки и другие элементы интерфейса
@@ -100,7 +104,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			//Количество параметров функции sprintf() неограниченно.
 			//Функция sprintf() позволяет вставлять в строку какие- угодно значения.
 
-			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
+		//	MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
 		break;
 		case IDCANCEL:EndDialog(hwnd, 0); break;
